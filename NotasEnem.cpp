@@ -4,20 +4,21 @@ using namespace std;
 typedef struct Aluno{
     char sex;
     char estado[3];
-    double NOTA_NAT;
-    double NOTA_HUM;
-    double NOTA_LIN;
-    double NOTA_MAT;
-    double NOTA_RED;
-    double MEDIA;
-    int ACERT_NAT;
-    int ACERT_HUM;
-    int ACERT_LIN;
-    int ACERT_MAT;
+    double notaNat;
+    double notaHum;
+    double notaLin;
+    double notaMat;
+    double notaRed;
+    double media;
+    int acertNat;
+    int acertHum;
+    int acertLin;
+    int acertMat;
 } Aluno;
 
 typedef struct ArvoreNode{
     int altura;
+    double media;
     vector<Aluno> notas;
     ArvoreNode *left;
     ArvoreNode *right;
@@ -54,60 +55,60 @@ Aluno CriarAluno(FILE *arquivoEntrada){
 
     // Disciplina Natureza   | Nota e Acertos
     
-        double NOTA_NAT;
-        fscanf (arquivoEntrada, "%lf%*c", &NOTA_NAT);
+        double notaNat;
+        fscanf (arquivoEntrada, "%lf%*c", &notaNat);
         
-        int ACERT_NAT;
-        fscanf (arquivoEntrada, "%d%*c", &ACERT_NAT);
+        int acertNat;
+        fscanf (arquivoEntrada, "%d%*c", &acertNat);
 
     // Disciplina Humanas    | Nota e Acertos
 
-        double NOTA_HUM;
-        fscanf (arquivoEntrada, "%lf%*c", &NOTA_HUM);
+        double notaHum;
+        fscanf (arquivoEntrada, "%lf%*c", &notaHum);
 
-        int ACERT_HUM;
-        fscanf (arquivoEntrada, "%d%*c", &ACERT_HUM);
+        int acertHum;
+        fscanf (arquivoEntrada, "%d%*c", &acertHum);
 
     // Disciplina Linguagens | Nota e Acertos
 
-        double NOTA_LIN;
-        fscanf (arquivoEntrada, "%lf%*c", &NOTA_LIN);
+        double notaLin;
+        fscanf (arquivoEntrada, "%lf%*c", &notaLin);
 
-        int ACERT_LIN;
-        fscanf (arquivoEntrada, "%d%*c", &ACERT_LIN);
+        int acertLin;
+        fscanf (arquivoEntrada, "%d%*c", &acertLin);
 
     // Disciplina Matematica | Nota e Acertos
 
-        double NOTA_MAT;
-        fscanf (arquivoEntrada, "%lf%*c", &NOTA_MAT);
+        double notaMat;
+        fscanf (arquivoEntrada, "%lf%*c", &notaMat);
 
-        int ACERT_MAT;
-        fscanf (arquivoEntrada, "%d%*c", &ACERT_MAT);
+        int acertMat;
+        fscanf (arquivoEntrada, "%d%*c", &acertMat);
 
     // Discplina Redacao     | Nota
 
-        double NOTA_RED;
-        fscanf (arquivoEntrada, "%lf%*c", &NOTA_RED);
+        double notaRed;
+        fscanf (arquivoEntrada, "%lf%*c", &notaRed);
     
     // Media Geral 
         
-        double MEDIA;
-        fscanf (arquivoEntrada, "%lf%*c%*c%*c", &MEDIA);
+        double media;
+        fscanf (arquivoEntrada, "%lf%*c%*c%*c", &media);
 
     Aluno buffer;
     buffer.sex = sex;
     buffer.estado[0] = estado[0];
     buffer.estado[1] = estado[1];
-    buffer.NOTA_NAT = NOTA_NAT;
-    buffer.NOTA_HUM = NOTA_HUM;
-    buffer.NOTA_LIN = NOTA_LIN;
-    buffer.NOTA_MAT = NOTA_MAT;
-    buffer.NOTA_RED = NOTA_RED;
-    buffer.MEDIA = MEDIA;
-    buffer.ACERT_NAT = ACERT_NAT;
-    buffer.ACERT_HUM = ACERT_HUM;
-    buffer.ACERT_LIN = ACERT_LIN;
-    buffer.ACERT_MAT = ACERT_MAT;
+    buffer.notaNat = notaNat;
+    buffer.notaHum = notaHum;
+    buffer.notaLin = notaLin;
+    buffer.notaMat = notaMat;
+    buffer.notaRed = notaRed;
+    buffer.media = media;
+    buffer.acertNat = acertNat;
+    buffer.acertHum = acertHum;
+    buffer.acertLin = acertLin;
+    buffer.acertMat = acertMat;
             
 
     return buffer;
