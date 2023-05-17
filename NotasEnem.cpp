@@ -34,7 +34,7 @@ Aluno CriarAluno(FILE *arquivoEntrada);
 
 Aluno LeNotas();
 
-ArvoreNode* inserir(ArvoreNode *raiz, vector<Aluno> dataSheet, int index);
+ArvoreNode* inserir(ArvoreNode *raiz, Aluno aluno);
 
 ArvoreNode* novoNo(Aluno aluno, double media);
 
@@ -53,6 +53,10 @@ int maior(int altura1, int altura2);
 int alturaDoNo(ArvoreNode *no);
 
 int fatorDeBalanceamento(ArvoreNode *no);
+
+double modulo(double n);
+
+int igual(double a, double b);
 
 void ComecaCriarNode (vector<Aluno> dataSheet);
 
@@ -73,8 +77,8 @@ int main() {
 
     cout << "COMECADO RECEBIMENTO/CRIACAO VETOR" << "\n";
     // NAO SABEMOS PQ, MAS NAO MEXA
-    fscanf (arquivoEntrada, "%*c%*c");
-    for (int i = 0; i < 10001; i++){
+    
+    for (int i = 0; i < TAMANHOARQUIVO; i++){
         dataSheet.push_back(CriarAluno(arquivoEntrada));
     }    
     fclose(arquivoEntrada);
@@ -90,12 +94,8 @@ Aluno CriarAluno(FILE *arquivoEntrada){
     
     // Informacoes Base      | Sexo e Estado
     
-        char sex;
-        fscanf (arquivoEntrada, "%*c%c%*c", &sex);
-
-        char estado[3];
-        fscanf (arquivoEntrada, "%c%c%*c", &estado[0], &estado[1]);
-
+        char sex[2], estado[3];
+        fscanf (arquivoEntrada, "%*c%c;%c%c%*c", &sex,&estado[0], &estado[1]);
     // Disciplina Natureza   | Nota e Acertos
     
         double notaNat;
@@ -136,10 +136,10 @@ Aluno CriarAluno(FILE *arquivoEntrada){
     // Media Geral 
         
         double media;
-        fscanf (arquivoEntrada, "%lf%*c%*c%*c", &media);
+        fscanf (arquivoEntrada, "%lf;%*c", &media);
 
     Aluno buffer;
-    buffer.sex = sex;
+    buffer.sex = sex[0];
     buffer.estado[0] = estado[0];
     buffer.estado[1] = estado[1];
     buffer.notaNat = notaNat;
@@ -171,29 +171,35 @@ ArvoreNode* novoNo(Aluno aluno, double media){
 }
 
 void ComecaCriarNode (vector<Aluno> dataSheet){
-
-    cout << "COMECADO CRIACAO ARVORE" << "\n";
     ArvoreNode *Arvore = NULL;
-    for (int i = 0; i < 10000; i++){
-        Arvore = inserir(Arvore, dataSheet, i);
+    clock_t inicio = clock();//aqui
+    printf("Comecou a arvore\n"); //aqui
+    for (int i = 0; i < TAMANHOARQUIVO; i++){
+        Arvore = inserir(Arvore, dataSheet.at(i));
     } 
-    cout << "FINALIZADO CRIACAO ARVORE" << "\n";
+    clock_t fim = clock();  //aqui
+    printf("Terminou em %lf segundos\n", (double)(fim-inicio)/CLOCKS_PER_SEC); //aqui
 
-    buscar(Arvore, LeNotas());
+    int resposta = 1;
+    while(resposta){
+        buscar(Arvore, LeNotas());
+        printf("Deseja ler mais? 1 p/sim 0 p/nao\n");
+        scanf("%d", &resposta);
+    }
+    
 }
 
-ArvoreNode* inserir(ArvoreNode *raiz, vector<Aluno> dataSheet, int index){
-    if(raiz == NULL) {// arvore vazia
-        double media = dataSheet.at(index).media = (dataSheet.at(index).notaHum+dataSheet.at(index).notaNat+dataSheet.at(index).notaMat+dataSheet.at(index).notaLin+dataSheet.at(index).notaRed)/5;
-        return novoNo(dataSheet.at(index), dataSheet.at(index).media);
-    }
+ArvoreNode* inserir(ArvoreNode *raiz, Aluno aluno){
+    if(raiz == NULL) // arvore vazia
+        return novoNo(aluno, aluno.media);
     else{ // insercao sera a esquerda ou a direita
-        if(dataSheet.at(index).media < raiz->media)
-            raiz->left = inserir(raiz->left, dataSheet, index);
-        else if(dataSheet.at(index).media > raiz->media)
-            raiz->right = inserir(raiz->right, dataSheet, index);
-        else contador++;
-            //printf("\nInsercao nao realizada!\n");
+        if(aluno.media < raiz->media)
+            raiz->left = inserir(raiz->left, aluno);
+        else if(aluno.media > raiz->media)
+            raiz->right = inserir(raiz->right, aluno);
+        else if(aluno.media == raiz->media){
+            raiz->notas.push_back(aluno);
+        }
     }
 
     // Recalcula a altura de todos os nos entre a raiz e o novo no inserido
@@ -325,11 +331,11 @@ void BuscaLinear(Aluno alunoBuscado, vector<Aluno> filaAluno){
 
     for(int i=0;i<tamanho;i++){
         // compara as notas entradas com as notas obtidas dos dados
-        if((alunoBuscado.notaHum==filaAluno[i].notaHum) &&
-           (alunoBuscado.notaMat==filaAluno[i].notaMat) &&
-           (alunoBuscado.notaLin==filaAluno[i].notaLin) &&
-           (alunoBuscado.notaNat==filaAluno[i].notaNat) &&
-           (alunoBuscado.notaNat==filaAluno[i].notaRed)){ 
+        if(igual(alunoBuscado.notaHum,filaAluno[i].notaHum) &&
+           igual(alunoBuscado.notaMat,filaAluno[i].notaMat) &&
+           igual(alunoBuscado.notaLin,filaAluno[i].notaLin) &&
+           igual(alunoBuscado.notaNat,filaAluno[i].notaNat) &&
+           igual(alunoBuscado.notaRed,filaAluno[i].notaRed)){ 
             ImprimeAluno(filaAluno[i]); 
             break;
         }
@@ -354,4 +360,14 @@ Aluno LeNotas(){
     buffer.acertNat = 0;
 
     return buffer;
+};
+
+double modulo(double n){
+    if(n<0)return -n;
+    return n;
+};
+
+int igual(double a, double b){
+    if(modulo(a-b)<=0.001)return 1;
+    return 0;
 };
