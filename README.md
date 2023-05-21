@@ -1,4 +1,4 @@
-# INF0287 - Algoritmos e Estruturas de Dados 1
+# INF0287 - Algoritmos e Estruturas de Dados 2
 # Trabalho unidade 1
 
 Prof. Dr. Hebert Coelho da Silva (hebert@ufg.br)
