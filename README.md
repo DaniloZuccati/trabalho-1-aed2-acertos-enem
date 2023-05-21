@@ -15,7 +15,7 @@ Integrantes:
 
 0 - Compilar o código:
 
-    g++ main.cpp Funcoes.cpp -o prog
+    g++ main.cpp BibliotecaENEM.cpp -o prog
     
 I - Motivação:
  
