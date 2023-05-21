@@ -1,15 +1,4 @@
-/*  Trabalho 1 da disciplina de Algoritmos e Estruturas de Dados 2 no semestre letivo 2023/1
-    Grupo 2
-    Integrantes do grupo:
-        Caio Souza Coelho Gonzaga
-        Danilo Zuccati de Oliveira
-        Nícolas Santana Kruger
-        Samuel Amorim Jaime
-*/
-
-#include <bits/stdc++.h>
-#define TAMANHOARQUIVO 2236968
-using namespace std;
+#include "Funcoes.h"
 
 #if defined(WIN32) || defined(_WIN32) || defined(__WIN32) && !defined(__CYGWIN__)
 const bool IS_WINDOWS = true;
@@ -17,100 +6,7 @@ const bool IS_WINDOWS = true;
 const bool IS_WINDOWS = false;
 #endif
 
-typedef struct Aluno{
-    char sex;
-    char estado[3];
-    double notaNat;
-    double notaHum;
-    double notaLin;
-    double notaMat;
-    double notaRed;
-    double media;
-    int acertNat;
-    int acertHum;
-    int acertLin;
-    int acertMat;
-} Aluno;
-
-typedef struct ArvoreNode{
-    int altura;
-    double media;
-    vector<Aluno> notas;
-    ArvoreNode *left;
-    ArvoreNode *right;
-} ArvoreNode;
-
 short VERIFICADOR = 0;
-
-Aluno CarregaDados(FILE *arquivoEntrada);
-
-Aluno LeNotas();
-
-ArvoreNode* inserir(ArvoreNode *raiz, Aluno aluno);
-
-ArvoreNode* novoNo(Aluno aluno, double media);
-
-ArvoreNode* rotacaoEsquerda(ArvoreNode *r);
-
-ArvoreNode* rotacaoDireita(ArvoreNode *r);
-
-ArvoreNode* rotacaoEsquerdaDireita(ArvoreNode *r);
-
-ArvoreNode* rotacaoDireitaEsquerda(ArvoreNode *r);
-
-ArvoreNode* balancear(ArvoreNode *raiz);
-
-ArvoreNode* CriaArvore(vector<Aluno> dataSheet);
-
-ArvoreNode* remover(ArvoreNode *raiz, double chave);
-
-int maior(int altura1, int altura2);
-
-int alturaDoNo(ArvoreNode *no);
-
-int fatorDeBalanceamento(ArvoreNode *no);
-
-double modulo(double n);
-
-int igual(double a, double b);
-
-void ImprimeAluno(Aluno aluno);
-
-void buscarNota(ArvoreNode *raiz, Aluno alunoBuscado);
-
-void buscarMedia(ArvoreNode *raiz, double media);
-
-void BuscaLinear(Aluno alunoBuscado, vector<Aluno> filaAluno);
-
-void menu(ArvoreNode *raiz);
-
-void imprimeopcoes();
-
-void ImprimirTodosVetor(vector<Aluno> filaAluno);
-
-int main() {
-
-    // Recebimento dos dados
-    vector<Aluno> dataSheet;
-    FILE *arquivoEntrada;
-    ArvoreNode* raiz;
-    arquivoEntrada = fopen("tratado.csv", "r");
-
-    cout << "COMECADO RECEBIMENTO/CRIACAO VETOR" << "\n";
-    
-    for (int i = 0; i < TAMANHOARQUIVO; i++){
-        dataSheet.push_back(CarregaDados(arquivoEntrada));
-    }    
-    fclose(arquivoEntrada);
-    cout << "FINALIZADO RECEBIMENTO/CRIACAO VETOR" << "\n";
-    // Finalizacao do recebimento dos dados
-
-    raiz = CriaArvore(dataSheet);
-
-    menu(raiz);
-
-    return 0;
-}
 
 int contador = 0;  // conta a quantidade de medias unicas (nos) da arvore 
 
@@ -450,11 +346,13 @@ void menu(ArvoreNode *raiz){
             break;
 
         case 3:
+            VERIFICADOR++;
             printf("Insira a media\n");
 
             scanf("%lf", &media);
 
-            if (remover(raiz, media) != NULL) {
+            remover(raiz, media);
+            if (VERIFICADOR){
                 printf ("REMOVIDO COM SUCESSO\n");
                 printf ("ALTURA DA ARVORE: %d\n", raiz->altura);
             }
@@ -487,7 +385,8 @@ void imprimeopcoes(){
 */
 ArvoreNode* remover(ArvoreNode *raiz, double chave) {
     if(raiz == NULL){
-        printf("Valor nao encontrado!\n");
+        printf("Valor nao encontrado!\n\n");
+        VERIFICADOR--;
         return NULL;
     } else { // procura o nó a remover
         if(igual(raiz->media, chave)) {
