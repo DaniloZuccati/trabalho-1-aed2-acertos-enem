@@ -1,4 +1,4 @@
-#include "Funcoes.h"
+#include "BibliotecaENEM.h"
 
 #if defined(WIN32) || defined(_WIN32) || defined(__WIN32) && !defined(__CYGWIN__)
 const bool IS_WINDOWS = true;
