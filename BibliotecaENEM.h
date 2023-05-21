@@ -1,4 +1,4 @@
-#ifndef FUNCOES_H
+#ifndef BIBLIOTECAENEM_H
 
 #include <bits/stdc++.h>
 #define TAMANHOARQUIVO 2236968
@@ -49,13 +49,13 @@ ArvoreNode* CriaArvore(vector<Aluno> dataSheet);
 
 ArvoreNode* remover(ArvoreNode *raiz, double chave);
 
+double modulo(double n);
+
 int maior(int altura1, int altura2);
 
 int alturaDoNo(ArvoreNode *no);
 
 int fatorDeBalanceamento(ArvoreNode *no);
-
-double modulo(double n);
 
 int igual(double a, double b);
 

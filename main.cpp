@@ -1,11 +1,11 @@
-#include "Funcoes.h"
+#include "BibliotecaENEM.h"
 
 int main (){
     // Recebimento dos dados
     vector<Aluno> dataSheet;
     FILE *arquivoEntrada;
     ArvoreNode* raiz;
-    arquivoEntrada = fopen("tratado.csv", "r");
+    arquivoEntrada = fopen("DadosTratados.csv", "r");
 
     cout << "COMECADO RECEBIMENTO/CRIACAO VETOR" << "\n";
     
