@@ -266,6 +266,7 @@ void ImprimeAluno(Aluno aluno){
 void BuscaLinear(Aluno alunoBuscado, vector<Aluno> filaAluno){
 
     int tamanho = filaAluno.size();
+    int found = 0;
 
     for(int i=0;i<tamanho;i++){
         // compara as notas entradas com as notas obtidas dos dados
@@ -274,10 +275,11 @@ void BuscaLinear(Aluno alunoBuscado, vector<Aluno> filaAluno){
            igual(alunoBuscado.notaLin,filaAluno[i].notaLin) &&
            igual(alunoBuscado.notaNat,filaAluno[i].notaNat) &&
            igual(alunoBuscado.notaRed,filaAluno[i].notaRed)){ 
-            ImprimeAluno(filaAluno[i]); 
+            ImprimeAluno(filaAluno[i]);
+            found++; 
             break;
         }
-    }
+    } if (!found) VERIFICADOR--;
 }
 
 void ImprimirTodosVetor(vector<Aluno> filaAluno){
