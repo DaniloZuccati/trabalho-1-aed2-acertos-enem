@@ -248,7 +248,7 @@ void ImprimeAluno(Aluno aluno){
     
     printf("|| SEXO: %c\n", aluno.sex);
 
-    printf("|| ESTADO: %s\n", aluno.estado);
+    printf("|| ESTADO: %c%c\n", aluno.estado[0], aluno.estado[1]);
 
     printf("|| NOTA LINGUAGENS: %.2lf ACERTOS: %d\n", aluno.notaLin, aluno.acertLin);
 
