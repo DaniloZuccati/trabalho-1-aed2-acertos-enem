@@ -404,7 +404,6 @@ ArvoreNode* remover(ArvoreNode *raiz, double chave) {
                     raiz->media = aux->media;
                     raiz->notas = aux->notas;
                     aux->media = chave;
-                    //printf("Elemento trocado: %d !\n", chave);
                     raiz->left = remover(raiz->left, chave);
                     return raiz;
                 }
@@ -416,7 +415,6 @@ ArvoreNode* remover(ArvoreNode *raiz, double chave) {
                     else
                         aux = raiz->right;
                     delete raiz;
-                    //printf("Elemento com 1 filho removido: %d !\n", chave);
                     return aux;
                 }
             }
