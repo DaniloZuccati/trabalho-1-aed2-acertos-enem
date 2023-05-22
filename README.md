@@ -17,8 +17,10 @@ Integrantes:
 
     g++ main.cpp BibliotecaENEM.cpp -o prog
     
-I - GITHUB N DEIXA UPAR ARQUIVO MAIS DE 50mb
-
+I - Arquivos necessários:
+    
+    É necessário colocar o seguinte arquivo na pasta do programa. Não foi colocado pois o github
+    limita o tamanho dos envios em 50mb
     https://drive.google.com/file/d/1ihHphahoSFPhn2jqOKiW1GocjfU-_wYV/view?usp=share_link
     
 II - Motivação:
